@@ -6,3 +6,4 @@ How to Design Programs
 - [3장](chapter3.rkt)
 - [4장](chapter4.rkt)
 - [5장](chapter5.rkt)
+- [6장](chapter6.rkt)
