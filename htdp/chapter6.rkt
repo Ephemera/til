@@ -70,3 +70,78 @@
 (subst-producer (make-movie 'TitleA 'ProducerA) 'ProducerB)
 ;; 예상값:
 (make-movie 'TitleA 'ProducerB)
+
+
+;; 6.6.1
+;; 구조체:
+(define-struct circle (center radius color))
+
+;; 데이터 정의:
+;; circle은 구조체이며
+;; (make-center c r c)에서 c는 posn이고 r은 number이며 c는 symbol이다
+
+;; 템플릿
+;; fun-for-circle : circle->???
+;; (define (fun-for-circle circle))
+
+;; 6.6.2
+(define-struct circle (center radius color))
+(define X 150)
+(define Y 150)
+
+(define (fun-for-circle circle)
+    (draw-solid-disk
+      (make-posn (posn-x (circle-center circle)) (posn-y (circle-center circle)))
+      (circle-radius circle)
+      (circle-color circle)))
+
+(define (draw-a-circle circle)
+    (fun-for-circle circle))
+
+(start 300 300)
+(draw-a-circle (make-circle (make-posn 150 150) 10 'red))
+
+;; 6.6.3
+(define (inside? center pos radius)
+  (>=
+    (- radius
+       (sqrt (+ (sqr (- (posn-x pos) (posn-x center))) (sqr (- (posn-y pos) (posn-y center))))))
+    0))
+
+(define (in-circle? circle position)
+  (cond
+    [(inside? (circle-center circle) position (circle-radius circle)) true]
+    [else false]))
+
+;; 6.6.4
+(define (translate-circle circle delta)
+  (make-circle
+    (make-posn
+      (+
+        (posn-x (circle-center circle))
+        (posn-x delta))
+      (+
+        (posn-y (circle-center circle))
+        (posn-y delta)))
+    (circle-radius circle)
+    (circle-color circle)))
+
+;; 6.6.5
+(define (clear-a-circle circle)
+  (draw-solid-disk
+    (make-posn (posn-x (circle-center circle)) (posn-y (circle-center circle)))
+    (circle-radius circle)
+    'white))
+
+;; 6.6.6
+;; move-circle : number circle->circle
+(define (draw-and-clear-circle a-circle)
+  (and
+    (draw-a-circle a-circle)
+    (sleep-for-a-while 2)
+    (clear-a-circle a-circle)))
+
+(define (move-circle delta a-circle)
+  (cond
+    [(draw-and-clear-circle a-circle) (translate-circle a-circle delta)]
+    [else a-circle]))
