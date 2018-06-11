@@ -10,11 +10,11 @@
 ;; 데이터 정의:
 ;; 동물은 다음의 세 구조체 중 하나이다
 ;; 1. (make-spider n a)
-;; n은 number, a는 number 
+;; n은 number, a는 number
 ;; 2. (make-elephant a)
 ;; a는 number
 ;; 3. (make-monkey n a)
-;; n은 number, a는 number 
+;; n은 number, a는 number
 
 ;; 템플릿:
 ;; (define (f an-animal)
@@ -39,4 +39,17 @@
     [else 'NeedMore]))
 
 
+;; 7.5.1
+(define (checked-area-of-disk r)
+  (cond
+    [(number? r) 
+     (cond
+       [(> r 0) (area-of-disk r)]
+       [else (error 'checked-area-of-disk "positive number expected")])]
+    [else (error 'checked-area-of-disk "number expected")]))
 
+;; 7.5.3
+(define (checked-make-vec a-vec)
+  (cond
+    [(and (> (vec-x a-vec) 0) (> (vec-y a-vec) 0)) a-vec]
+    [else (error 'checked-make-vec "invalidate structure")]))
