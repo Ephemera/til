@@ -7,3 +7,5 @@ How to Design Programs
 - [4장](chapter4.rkt)
 - [5장](chapter5.rkt)
 - [6장](chapter6.rkt)
+- [7장](chapter7.rkt)
+- [8장](chapter8.rkt)
