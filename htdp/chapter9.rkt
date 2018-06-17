@@ -64,3 +64,68 @@
     [else (or (symbol=? (first a-list-of-symbols) 'doll)
               (contains-doll? (rest a-list-of-symbols)))]))
 
+;; 9.3.3
+;; contains? : a-list-of-symbols->boolean
+(define (contains? target a-list-of-symbols)
+  (cond
+    [(empty? a-list-of-symbols) false]
+    [else (or (symbol=? (first a-list-of-symbols) target)
+              (contains? (rest a-list-of-symbols)))]))
+
+
+;; 9.5.1
+(define (sum a-list-of-nums)
+  (cond
+    [(empty? a-list-of-nums) 0]
+    [else (+ (first a-list-of-nums) (sum (rest a-list-of-nums)))]))
+
+(sum empty)
+(sum (cons 1.00 empty))
+(sum (cons 17.05 (cons 1.22 (cons 2.59 empty))))
+
+;; 9.5.2
+(define (how-many-symbols a-list-of-symbols)
+  (cond
+    [(empty? a-list-of-symbols) 0]
+    [else (+ 1 (how-many-symbols (rest a-list-of-symbols)))]))
+
+(= 3 (how-many-symbols (cons 'a (cons 'b (cons 'c empty)))))
+
+;; 9.5.3
+(define (dollar-store? a-list-of-costs)
+  (cond
+    [(empty? a-list-of-costs) true]
+    [(> (first a-list-of-costs) 1) false]
+    [else (dollar-store? (rest a-list-of-costs))]))
+
+(equal? (dollar-store? empty) true)
+(equal? (not (dollar-store? (cons .75 (cons 1.95 (cons .25 empty))))) true)
+(equal? (dollar-store? (cons .75 (cons .95 (cons .25 empty)))) true)
+
+;; 9.5.4
+(define (check-range1 a-list-of-measures)
+  (cond
+    [(empty? a-list-of-measures) true]
+    [(or (>= 5 (first a-list-of-measures)) (<= 95 (first a-list-of-measures))) false]
+    [else (check-range1 (rest a-list-of-measures))]))
+
+(define (check-range a-list-of-measures minimum maximum)
+  (cond
+    [(empty? a-list-of-measures) true]
+    [(or (>= minimum (first a-list-of-measures)) (<= maximum (first a-list-of-measures))) false]
+    [else (check-range (rest a-list-of-measures))]))
+
+;; 9.5.7
+(define (sum a-list-of-nums)
+  (cond
+    [(empty? a-list-of-nums) 0]
+    [else (+ (first a-list-of-nums) (sum (rest a-list-of-nums)))]))
+(define (how-many a-list)
+  (cond
+    [(empty? a-list) 0]
+    [else (+ 1 (how-many (rest a-list)))]))
+(define (average-price a-list-of-prices)
+  (cond
+    [(empty? a-list-of-prices) (error "it is empty")]
+    [else (/ (sum a-list-of-prices) (how-many a-list-of-prices))]))
+
