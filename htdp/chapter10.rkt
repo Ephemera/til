@@ -72,3 +72,52 @@
                                (controller (- money (* (quotient money 100) 100))))))]
     [else (cons money (cons 'cents empty))])) 
 (controller 103)
+
+
+;; 10.2.1
+(define-struct ir (name price)
+(define (contains-doll? an-inv)
+  (cond
+    [(empty? an-inv) false]
+    [else (cond
+            [(symbol=? (ir-name (first an-inv)) 'doll) true]
+            [else (contains-coll? (rest an-inv))])]))
+
+(define (contains? asymbol an-inv)
+  (cond
+    [(empty? an-inv) false]
+    [else (cond
+            [(symbol=? (ir-name (first an-inv)) asymbol) true]
+            [else (contains-coll? asymbol (rest an-inv))])]))
+
+;; 10.2.4
+(define-struct phonebook (name number))
+
+(define (whose-number anumber alop)
+  (cond
+    [(empty? alop) 'nothing]
+    [else (cond
+            [(symbol=? (phonebook-number (first alop)) anumber) (phonebook-name (first alop))]
+            [else (whose-number anumber (rest alop))])]))
+
+(define (phone-number aname alop)
+  (cond
+    [(empty? alop) 'nothing]
+    [else (cond
+            [(symbol=? (phonebook-name (first alop)) aname) (phonebook-number (first alop))]
+            [else (phone-number aname (rest alop))])]))
+
+;; 10.2.5
+(define (extract>1 an-inv)
+  (cond
+    [(empty? an-inv) empty]
+    [else (cond
+            [(> (ir-price (first an-inv)) 1.00)
+             (cons (first an-inv) (extract>1 (rest an-inv)))]
+            [else (extract>1 (rest an-inv))])]))
+
+;; 10.2.7
+(define (raise-prices an)
+  (cond
+    [(empty? an-inv) empty]
+    [else (cons (make-ir (* (ir-price (first an-inv)) 1.05) (ir-name first an-inv)) (raise-prices (rest an-inv)))]))
