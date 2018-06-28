@@ -35,3 +35,33 @@
     [else (cons (random-n-m 20 120) (tie-dyed (- n 1)))]))
 (tie-dyed 10) ; test
 
+
+;; 11.4.1
+(define (! n)
+  (cond
+    [(zero? n) 1]
+    [else (* n (! (sub1 n)))]))
+(! 10)
+(! 100)
+
+(define (product-from-20 n)
+  (cond
+    [(<= n 20) 1]
+    [else (* n (product-from-20 (sub1 n)))]))
+(product-from-20 21)
+(product-from-20 22)
+
+;; 11.4.2
+(define (product n m)
+  (cond
+    [(<= m n) 1]
+    [else (* m (product n (sub1 m)))]))
+
+(product 20 22)
+
+;; 11.4.3
+(define (product-from-minus-11 n)
+  (product -11 n))
+(product-from-minus-11 0)
+
+
