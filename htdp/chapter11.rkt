@@ -64,4 +64,31 @@
   (product -11 n))
 (product-from-minus-11 0)
 
+;; 11.5.1
+(define (add n x)
+  (cond
+    [(zero? n) x]
+    [else (add1 (add (sub1 n) x))]))
+(= (add 11 12) 23)
+
+;; 11.5.2
+(define (multiply-by-pi n)
+  (cond 
+    [(zero? n) 0]
+    [else (+ 3.14 (multiply-by-pi (sub1 n)) )]))
+(= (multiply-by-pi 0) 0)
+(= (multiply-by-pi 2) 6.28)
+
+(define (multiply n x)
+  (cond
+    [(zero? n) 0]
+    [else (add x (multiply (sub1 n) x))]))
+(= (multiply 2 3) 6)
+
+;; 11.5.3
+(define (exponent n x)
+  (cond
+    [(zero? n) 1]
+    [else (multiply x (exponent (sub1 n) x))]))
+(= (exponent 2 3) 9)
 
