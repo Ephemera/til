@@ -34,3 +34,42 @@ c 3
 $ echo -e "a\nb\nc" | awk 'NR==2'
 b
 ```
+
+#### 기본제공변수들
+
+`NR`에 대해 파악하다보니 다른 변수들도 많았다
+
+
+**FS**(input Field Separator)
+
+`awk`는 기본적으로 한 칸의 공백을 기준으로 구분하는데 그 구분자를 원하는 것으로 바꿀 수
+있다.
+
+```sh
+$ echo 'a/b/c d/e/f' | awk '{print $2}'
+d/e/f
+
+$ echo 'a/b/c d/e/f' | awk -F '/' '{print $3}'
+c d
+
+# 아래와 같이 쓸 수도 있다
+
+$ echo 'a/b/c d/e/f' | awk 'BEGIN {FS="/"} {print $3}'
+c d
+```
+
+**OFS**(Output Field Separator)
+
+`awk`는 기본적으로 한 칸의 공백을 출력할 때의 구분자로 사용하는데 이것도 변경할
+수 있다.
+
+```sh
+$ echo 'a b c' | awk 'BEGIN {OFS=",";} {print $1,$2}'
+a,b # 공백이 기본구분자이고 출력할 땐 ,를 구분자로 사용했으므로
+
+$ echo 'a/b/c' | awk -F '/' 'BEGIN {OFS=","} {print $1,$2}'
+a,b
+
+$ echo 'a/b/c' | awk 'BEGIN {FS="/";OFS=",";} {print $1,$2}'
+a,b
+```
