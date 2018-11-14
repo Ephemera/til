@@ -73,3 +73,27 @@ a,b
 $ echo 'a/b/c' | awk 'BEGIN {FS="/";OFS=",";} {print $1,$2}'
 a,b
 ```
+
+**RS**(Record Separator)
+
+`awk`는 기본적으로 한줄이 레코드의 기준(즉 `\n`이 구분자)이나 이 역시도 변경할 수
+있다.
+
+```sh
+$ echo -e 'abc' | awk '{print $1}'
+abc
+
+$ echo -e 'abc' | awk 'BEGIN {RS="b"} {print $1}'
+a
+c
+```
+
+**ORS**(Output Record Separator)
+
+`OFS`와 같이 출력시 레코드의 구분자를 지정할 수 있다.
+
+```sh
+$ echo -e 'a\nb\nc' | awk 'BEGIN {ORS="";} {print;}'
+abc
+# \n이 기본 레코드 구분자이고 그것을 ""로 변경했으므로 결과는 abc
+```
