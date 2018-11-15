@@ -97,3 +97,49 @@ $ echo -e 'a\nb\nc' | awk 'BEGIN {ORS="";} {print;}'
 abc
 # \n이 기본 레코드 구분자이고 그것을 ""로 변경했으므로 결과는 abc
 ```
+
+**NF**(Number of Fields in a record)
+
+`NR`과 비슷한데 필드 수를 들고 있다
+
+```sh
+$ echo -e 'a b c d\na b c\na b' | awk '{print NR"->"NF}'
+1->4
+2->3
+3->2
+```
+
+**FILENAME**
+
+파일이름을 출력해준다.
+파이프라인으로 입력을 받았을 때는 `-`를 출력한다.
+
+```
+echo -e 'a b c d\na b c\na b' | awk '{print FILENAME}'
+-
+-
+-
+```
+
+**FNR**(Number of the current Record in the current File)
+
+각 파일의 레코드 수를 출력한다.
+`NR`과 결과가 같아보이는듯 하지만 각 파일의 레코드 수를 출력한다는 점에서 다르다
+
+```
+$ awk '{print FILENAME,FNR}' file1 file2
+file1 1
+file1 2
+file1 3
+file2 1
+file2 2
+file2 3
+
+$ awk '{print FILENAME,NR}' file1 file2
+file1 1
+file1 2
+file1 3
+file2 4
+file2 5
+file2 6
+```
